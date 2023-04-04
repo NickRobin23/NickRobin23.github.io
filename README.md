@@ -75,9 +75,3 @@ Contributions are what make the open source community such an amazing place to b
 ## Authors
 
 * **Robin** - *New Coder* - [Robin](https://github.com/NickRobin23) - *Main Game/Site Functionality*
-
-## Acknowledgements
-
-* []()
-* []()
-* []()
