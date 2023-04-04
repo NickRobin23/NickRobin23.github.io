@@ -13,7 +13,10 @@
     <a href="https://github.com/NickRobin23/NickRobin23.github.io"><strong>Explore the docs »</strong></a>
     <br/>
     <br/>
+<<<<<<< HEAD
     <a href="https://github.com/NickRobin23/NickRobin23.github.io">View Demo</a>
+=======
+    <a href="file:///D:/GitHub/NickRobin23.github.io/index.html">View Demo</a>
     .
     <a href="https://github.com/NickRobin23/NickRobin23.github.io/issues">Report Bug</a>
     .
