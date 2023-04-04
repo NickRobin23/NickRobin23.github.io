@@ -28,7 +28,7 @@
 
 ## About The Project
 
-![Screen Shot](images/example.png)
+![Screen Shot](images/example.PNG)
 
 This is a fairly simple site coded using HTML, CSS, and Javascript to make simple games accessible all in one website. In the future, there will be matching games, snake, and more!
 
