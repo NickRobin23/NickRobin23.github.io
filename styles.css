@@ -61,7 +61,28 @@ button:active {
   background-color: #27ae60;
 }
 
-@keyframes fadeOut {
+#start-button {
+  /* add these styles to enable CSS transitions */
+  transition: all 0.5s ease-in-out;
+  height: 3em;
+  padding: 10px 20px;
+  opacity: 1;
+  border-radius: 0.5em;
+  font-size: 1em;
+}
+
+#start-button.collapsed {
+  /* add this style to animate the height to 0 */
+  height: 0;
+  padding: 0;
+  opacity: 0;
+  border-radius: 30px;
+  font-size: 0em;
+  
+  /* transform: rotate(10deg); */
+}
+
+/* @keyframes fadeOut {
   from {
     opacity: 1;
   }
@@ -69,7 +90,31 @@ button:active {
     opacity: 0;
   }
 }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 .fade-out {
-  animation: fadeOut 1s forwards;
+  animation: fadeOut 0.5s forwards;
+}
+
+.fade-in {
+  animation: fadeOut 0.5s backwards;
+} */
+
+#game-container {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  transition: width 0.5s, height 0.5s;
+}
+
+#game-container.show {
+  width: 600px;
+  height: 600px;
 }
