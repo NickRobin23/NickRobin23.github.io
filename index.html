@@ -13,12 +13,18 @@
     <h1 class="game-title">Snake Game</h1>
     <div id="score-container">
       <p>Score: <span id="score">0</span></p>
-      <!-- <p>High Score: <span id="high-score">0</span></p> -->
       <p id="high-score">High Score: 0</p>
     </div>
     <canvas id="game-board" width="400" height="400"></canvas>
-    <button id="start-button">Start Game</button>
-  </div>
+    <div class="controlContainer ">
+      <div></div>
+      <div class="ta-center"><button id="start-button" class="collapsable">Start Game</button></div>
+      <div class="controls">
+          <button id="soundButton" class="collapsable">
+            <img src="game-photos/sound-on.png" alt="Toggle Sound">
+          </button>
+      </div>
+    </div>
   <script src="script.js"></script>
 </body>
 </html>

@@ -2,9 +2,16 @@ const canvas = document.getElementById('game-board');
 const ctx = canvas.getContext('2d');
 const scoreElement = document.getElementById('score');
 const startButton = document.getElementById('start-button');
-// const highScoreElement = document.getElementById('high-score');
 const eatSound = document.getElementById('eat-sound');
 const gameOverSound = document.getElementById('game-over-sound');
+
+const foodImage = new Image();
+foodImage.src = 'assets/food.png';
+foodImage.onload = function() {
+  // Draw the food with higher quality
+  ctx.imageSmoothingEnabled = false;
+  ctx.drawImage(foodImage, food.x * tileSize, food.y * tileSize, tileSize, tileSize);
+};
 
 const gridSize = 20;
 const tileSize = canvas.width / gridSize;
@@ -35,6 +42,30 @@ function velocityFromDirection(direction) {
   return {x: 0, y: 0};
 }
 
+/**
+ * Returns the offset of the eysa
+ * @param {'up' | 'down' | 'left' | 'right' | 'none'} direction - The new direction of the snake.
+ */
+function eyesOffsetFromDirection(direction) {
+  if (direction === 'up') return [
+    {x: -1, y: -0.5},
+    {x: 1, y: -0.5}
+  ];
+  if (direction === 'down') return [
+    {x: -1, y: 0.5},
+    {x: 1, y: 0.5}
+  ]
+  if (direction === 'left') return [
+    {x: -0.5, y: 1},
+    {x: -0.5, y: -1}
+  ];
+  // if (direction === 'right') 
+  return [
+    {x: 0.5, y: 1},
+    {x: 0.5, y: -1}
+  ];
+}
+
 let food = randomFoodPosition();
 let score = 0;
 // let highScore = 0;
@@ -47,11 +78,10 @@ document.addEventListener('keydown', updateDirection);
 startButton.addEventListener('click', () => {
   if (!gameInProgress) {
     gameInProgress = true;
-    startButton.classList.add('collapsed');
+    document.querySelectorAll('.collapsable').forEach(
+      element => element.classList.add('collapsed')
+    );
     setTimeout(() => {
-      // startButton.style.display = 'none';
-      // startButton.classList.remove('fade-out');
-      // Adjust the container size to fit the game board
     }, 1000);
     gameLoop();
   }
@@ -82,6 +112,18 @@ function updateDirection(event) {
   }
 }
 
+const soundButton = document.getElementById('soundButton');
+let soundEnabled = true;
+
+soundButton.addEventListener('click', () => {
+  soundEnabled = !soundEnabled;
+  if (soundEnabled) {
+    soundButton.querySelector('img').src = 'game-photos/sound-on.png';
+  } else {
+    soundButton.querySelector('img').src = 'game-photos/sound-off.png';
+  }
+});
+
 /**
  * Draws the snake on the game board.
  *
@@ -92,41 +134,59 @@ function updateDirection(event) {
 function drawSnake(ctx, snake, interpolation) {
   ctx.save();
 
-  if (snake.length === 1) {
-    // Draw a circle for the snake head if it's the only segment
-
-    ctx.fillStyle = 'green';
-    ctx.strokeStyle = 'none';
-    ctx.beginPath();
-    ctx.arc(
-      snake[0].x * tileSize + tileSize / 2, 
-      snake[0].y * tileSize + tileSize / 2, 
-      tileSize / 2, 
-      0, 
-      2 * Math.PI
-    );
-    ctx.fill();
-    return;
-  } 
-
   ctx.strokeStyle = 'green';
   ctx.lineWidth = tileSize;
   ctx.lineCap = 'round';
   ctx.lineJoin = 'round';
   
+  if (snake.length > 1) {
+    ctx.beginPath();
+    snake.forEach((segment, index) => {
+      if (index === 0) {
+        const velocity = velocityFromDirection(currentDirection);
+        const x = segment.x * tileSize + tileSize / 2 + interpolation * velocity.x * tileSize;
+        const y = segment.y * tileSize + tileSize / 2 + interpolation * segment.y * tileSize;
+        ctx.moveTo(segment.x * tileSize + tileSize / 2, segment.y * tileSize + tileSize / 2);
+      } else {
+        ctx.lineTo(segment.x * tileSize + tileSize / 2, segment.y * tileSize + tileSize / 2);
+      }
+    });
+    
+    ctx.stroke();
+  }
+
+  // Draw a circle for the snake head if it's the only segment
+
+  const headXCtr = snake[0].x * tileSize + tileSize / 2;
+  const headYCtr = snake[0].y * tileSize + tileSize / 2;
+  ctx.fillStyle = 'darkgreen';
+  ctx.strokeStyle = 'none';
   ctx.beginPath();
-  snake.forEach((segment, index) => {
-    if (index === 0) {
-      const velocity = velocityFromDirection(currentDirection);
-      const x = segment.x * tileSize + tileSize / 2 + interpolation * velocity.x * tileSize;
-      const y = segment.y * tileSize + tileSize / 2 + interpolation * segment.y * tileSize;
-      ctx.moveTo(segment.x * tileSize + tileSize / 2, segment.y * tileSize + tileSize / 2);
-    } else {
-      ctx.lineTo(segment.x * tileSize + tileSize / 2, segment.y * tileSize + tileSize / 2);
-    }
-  });
-  
-  ctx.stroke();
+  ctx.arc(
+    headXCtr, 
+    headYCtr,
+    tileSize / 2, 
+    0, 
+    2 * Math.PI
+  );
+  ctx.fill();
+
+  ctx.fillStyle = 'black';
+
+  const eyesOffset = eyesOffsetFromDirection(currentDirection);
+  for(const eyeOffset of eyesOffset) {
+    ctx.beginPath();
+    ctx.arc(
+      headXCtr + tileSize / 4 * eyeOffset.x, 
+      headYCtr + tileSize / 4 * eyeOffset.y,
+      tileSize / 8,
+      0,
+      2 * Math.PI
+    );
+    ctx.fill();
+  }
+
+
 
   ctx.restore();
 }
@@ -140,17 +200,24 @@ function randomFoodPosition() {
 }
 
 function playEatSound() {
-  eatSound.currentTime = 0;
-  eatSound.play();
+  if (soundEnabled) {
+    eatSound.currentTime = 0;
+    eatSound.play();
+  }
 }
 
 function playGameOverSound() {
+  if (soundEnabled) {
   gameOverSound.currentTime = 0;
   gameOverSound.play();
+  }
 }
 
 function gameLoop() {
-  if (!gameInProgress) return;
+
+  if (!gameInProgress) {
+    return
+  }
 
   currentDirection = nextDirection;
   const velocity = velocityFromDirection(currentDirection);
@@ -165,7 +232,7 @@ function gameLoop() {
   } else {
     snake.pop();
   }
-
+  
   if (head.x < 0 || head.x >= gridSize || head.y < 0 || head.y >= gridSize) {
     playGameOverSound(); // play game over sound effect
     resetGame();
@@ -185,9 +252,8 @@ function gameLoop() {
   drawSnake(ctx, snake);
 
   // Draw the food
-  ctx.fillStyle = 'red';
-  ctx.strokeStyle = 'none'
-  drawCircle(ctx, food.x * tileSize + tileSize / 2, food.y * tileSize + tileSize / 2, tileSize / 2);
+  ctx.fillStyle = '#ecf0f1';
+  ctx.drawImage(foodImage, food.x * tileSize, food.y * tileSize, tileSize, tileSize);
 
   setTimeout(gameLoop, 100);
 }
@@ -201,12 +267,12 @@ function drawCircle(ctx, x, y, radius) {
 }
 
 function resetGame() {
+  gameInProgress = false;
   if (score > highScore) {
     highScore = score;
     localStorage.setItem('highScore', highScore);
     highScoreElement.textContent = `High Score: ${highScore}`;
   }
-  gameInProgress = false;
   if (score > highScore) {
     highScore = score;
     highScoreElement.textContent = highScore;
@@ -221,15 +287,15 @@ function resetGame() {
   // Show "You Lost" message
   ctx.fillStyle = 'black';
   ctx.font = '30px Arial';
-  ctx.fillText('You Lost', canvas.width / 2 - 70, canvas.height / 2 - 15);
+  ctx.textAlign = 'center';
+  ctx.fillText('You Lost', canvas.width / 2, canvas.height / 2 - 15);
 
   // Show "Click Start to play again" message
   ctx.fillStyle = 'black';
   ctx.font = '16px Arial';
-  ctx.fillText('Click Start to play again', canvas.width / 2 - 100, canvas.height / 2 + 20);
+  ctx.fillText('Click Start to play again', canvas.width / 2, canvas.height / 2 + 20);
 
-  // Show the start button with a fade-in effect
-  // startButton.classList.add('fade-out');
-  // startButton.style.display = 'block';
-  startButton.classList.remove('collapsed');
+  document.querySelectorAll('.collapsable').forEach(
+    element => element.classList.remove('collapsed')
+  );
 }

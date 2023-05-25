@@ -6,7 +6,13 @@ body {
   min-height: 100vh;
   margin: 0;
   background-color: #2c3e50;
+
+  background-image: url('assets/funky-lines.webp');
+
+  background-repeat: repeat;
+  /* background-size: 40px 40px; */
 }
+
 
 .game-container {
   display: flex;
@@ -15,18 +21,42 @@ body {
   background-color: #34495e;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 2px 25px black;
+}
+
+.controls {
+  width: 100%;
+  text-align: right;
+  margin-bottom: 1em;
+  margin-top: 0.25em;
+}
+
+.controls button {
+  height: 2em;
+  background: rgba(255, 255, 255, 0.05);
+  transition: background 0.1s;
+  padding: 0.5em;
+}
+
+.controls button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.controls button img {
+  max-width: 100%;
+  max-height: 100%;
+  height: 100%;
 }
 
 .game-title {
-  color: #ecf0f1;
+  color: #f6f8f8f1;
   margin: 0 0 20px;
+  text-shadow: black 2px 2px 8px;
 }
 
 #game-board {
-  border: 1px solid #7f8c8d;
+  /* border: 1px solid #7f8c8d; */
   background-color: #ecf0f1;
-  margin-bottom: 10px;
 }
 
 #score-container {
@@ -39,6 +69,7 @@ body {
 #score-container p {
   margin: 0;
   color: #ecf0f1;
+  text-shadow: black 2px 2px 2.5px;
 }
 
 button {
@@ -54,7 +85,7 @@ button {
 }
 
 button:hover {
-  background-color: #2ecc71;
+  background-color: #2ac269;
 }
 
 button:active {
@@ -71,50 +102,35 @@ button:active {
   font-size: 1em;
 }
 
-#start-button.collapsed {
-  /* add this style to animate the height to 0 */
+.collapsable {
+  transition: height 0.5s, padding 0.5s, opacity 0.5s, font-size 0.5s;
+}
+.collapsable.collapsed, #start-button.collapsed {
   height: 0;
   padding: 0;
   opacity: 0;
-  border-radius: 30px;
   font-size: 0em;
-  
-  /* transform: rotate(10deg); */
 }
 
-/* @keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.controlContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.25em;
+  width: 100%;
 }
 
-.fade-out {
-  animation: fadeOut 0.5s forwards;
+.controlContainer > div {
+  flex: 1 1 33.3333%;
 }
 
-.fade-in {
-  animation: fadeOut 0.5s backwards;
-} */
-
-#game-container {
-  width: 0;
-  height: 0;
-  overflow: hidden;
-  transition: width 0.5s, height 0.5s;
+.ta-center {
+  text-align: center;
 }
-
-#game-container.show {
-  width: 600px;
-  height: 600px;
+.ta-left {
+  text-align: left;
+}
+.ta-right {
+  text-align: right;
 }

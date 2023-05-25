@@ -1,7 +1,7 @@
 <br/>
 <p align="center">
   <a href="https://github.com/NickRobin23/NickRobin23.github.io">
-    <img src="images/logo.jpg" alt="Logo" width="80" height="80">
+    <img src="readme-images/logo.jpg" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Simple Game Website</h3>
@@ -25,7 +25,7 @@
 
 ## About The Project
 
-![Screen Shot](images/example.PNG)
+![Screen Shot](readme-images/example.PNG)
 
 This is a fairly simple site coded using HTML, CSS, and Javascript to make simple games accessible all in one website. In the future, there will be matching games, snake, and more!
 
