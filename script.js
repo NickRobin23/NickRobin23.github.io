@@ -7,11 +7,6 @@ const gameOverSound = document.getElementById('game-over-sound');
 
 const foodImage = new Image();
 foodImage.src = 'assets/food.png';
-foodImage.onload = function() {
-  // Draw the food with higher quality
-  ctx.imageSmoothingEnabled = false;
-  ctx.drawImage(foodImage, food.x * tileSize, food.y * tileSize, tileSize, tileSize);
-};
 
 const gridSize = 20;
 const tileSize = canvas.width / gridSize;
@@ -214,9 +209,13 @@ function playGameOverSound() {
 }
 
 function gameLoop() {
-
   if (!gameInProgress) {
-    return
+    return;
+  }
+
+  // Define food here
+  if (!food) {
+    food = randomFoodPosition();
   }
 
   currentDirection = nextDirection;
@@ -227,12 +226,12 @@ function gameLoop() {
   if (head.x === food.x && head.y === food.y) {
     score += 1;
     scoreElement.textContent = score;
-    food = randomFoodPosition();
+    food = randomFoodPosition(); // re-position the food once eaten
     playEatSound(); // Play the eat sound
   } else {
     snake.pop();
   }
-  
+
   if (head.x < 0 || head.x >= gridSize || head.y < 0 || head.y >= gridSize) {
     playGameOverSound(); // play game over sound effect
     resetGame();
@@ -244,7 +243,7 @@ function gameLoop() {
     resetGame();
     return;
   }
-  
+
   ctx.fillStyle = '#ecf0f1';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -252,8 +251,10 @@ function gameLoop() {
   drawSnake(ctx, snake);
 
   // Draw the food
-  ctx.fillStyle = '#ecf0f1';
-  ctx.drawImage(foodImage, food.x * tileSize, food.y * tileSize, tileSize, tileSize);
+  if (gameInProgress && food) {
+    ctx.fillStyle = '#ecf0f1';
+    ctx.drawImage(foodImage, food.x * tileSize, food.y * tileSize, tileSize, tileSize);
+  }
 
   setTimeout(gameLoop, 100);
 }
@@ -273,14 +274,13 @@ function resetGame() {
     localStorage.setItem('highScore', highScore);
     highScoreElement.textContent = `High Score: ${highScore}`;
   }
-  if (score > highScore) {
-    highScore = score;
-    highScoreElement.textContent = highScore;
-  }
   snake = [{x: gridSize / 2, y: gridSize / 2}];
   currentDirection = 'none';
   nextDirection = 'none';
-  food = randomFoodPosition();
+  
+  // Set food to null here
+  food = null;
+  
   score = 0;
   scoreElement.textContent = score;
 

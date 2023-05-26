@@ -32,7 +32,7 @@ body {
 }
 
 .controls button {
-  height: 2em;
+  height: 2.4em;
   background: rgba(255, 255, 255, 0.05);
   transition: background 0.1s;
   padding: 0.5em;
