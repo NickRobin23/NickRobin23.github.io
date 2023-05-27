@@ -38,7 +38,7 @@ function velocityFromDirection(direction) {
 }
 
 /**
- * Returns the offset of the eysa
+ * Returns the offset of the eyes
  * @param {'up' | 'down' | 'left' | 'right' | 'none'} direction - The new direction of the snake.
  */
 function eyesOffsetFromDirection(direction) {
@@ -70,6 +70,8 @@ let highScore = localStorage.getItem('highScore') || 0;
 highScoreElement.textContent = `High Score: ${highScore}`;
 
 document.addEventListener('keydown', updateDirection);
+document.addEventListener('touchstart', handleTouchStart);
+document.addEventListener('touchmove', handleTouchMove);
 startButton.addEventListener('click', () => {
   if (!gameInProgress) {
     gameInProgress = true;
@@ -104,6 +106,36 @@ function updateDirection(event) {
         nextDirection = 'right';
       }
       break;
+  }
+}
+
+function handleTouchStart(event) {
+  touchStartX = event.touches[0].clientX;
+  touchStartY = event.touches[0].clientY;
+}
+
+function handleTouchMove(event) {
+  if (event.touches.length === 0) return;
+
+  const touchX = event.touches[0].clientX;
+  const touchY = event.touches[0].clientY;
+  const deltaX = touchX - touchStartX;
+  const deltaY = touchY - touchStartY;
+
+  if (Math.abs(deltaX) > Math.abs(deltaY)) {
+    // horizontal swipe
+    if (deltaX > 0 && currentDirection !== 'left') {
+      nextDirection = 'right';
+    } else if (deltaX < 0 && currentDirection !== 'right') {
+      nextDirection = 'left';
+    }
+  } else {
+    // vertical swipe
+    if (deltaY > 0 && currentDirection !== 'up') {
+      nextDirection = 'down';
+    } else if (deltaY < 0 && currentDirection !== 'down') {
+      nextDirection = 'up';
+    }
   }
 }
 
@@ -181,8 +213,6 @@ function drawSnake(ctx, snake, interpolation) {
     ctx.fill();
   }
 
-
-
   ctx.restore();
 }
 
@@ -203,8 +233,8 @@ function playEatSound() {
 
 function playGameOverSound() {
   if (soundEnabled) {
-  gameOverSound.currentTime = 0;
-  gameOverSound.play();
+    gameOverSound.currentTime = 0;
+    gameOverSound.play();
   }
 }
 
@@ -277,10 +307,10 @@ function resetGame() {
   snake = [{x: gridSize / 2, y: gridSize / 2}];
   currentDirection = 'none';
   nextDirection = 'none';
-  
+
   // Set food to null here
   food = null;
-  
+
   score = 0;
   scoreElement.textContent = score;
 
