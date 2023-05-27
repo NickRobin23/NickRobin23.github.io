@@ -57,6 +57,8 @@ body {
 #game-board {
   /* border: 1px solid #7f8c8d; */
   background-color: #ecf0f1;
+  touch-action: none;
+  overscroll-behavior: none;
 }
 
 #score-container {
