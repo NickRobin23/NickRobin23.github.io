@@ -315,14 +315,14 @@ function resetGame() {
   scoreElement.textContent = score;
 
   // Show "You Lost" message
-  ctx.fillStyle = 'black';
-  ctx.font = '30px Arial';
+  ctx.fillStyle = '#34495e';
+  ctx.font = 'bold 30px sans-serif';
   ctx.textAlign = 'center';
   ctx.fillText('You Lost', canvas.width / 2, canvas.height / 2 - 15);
 
   // Show "Click Start to play again" message
-  ctx.fillStyle = 'black';
-  ctx.font = '16px Arial';
+  ctx.fillStyle = '#34495e';
+  ctx.font = '16px Verdana';
   ctx.fillText('Click Start to play again', canvas.width / 2, canvas.height / 2 + 20);
 
   document.querySelectorAll('.collapsable').forEach(
