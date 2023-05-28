@@ -11,6 +11,43 @@ foodImage.src = 'assets/food.png';
 const gridSize = 20;
 const tileSize = canvas.width / gridSize;
 
+let snakeColor = 'green';
+let snakeHeadColor = 'darkgreen';
+function updateSnakeColor(col) {
+  snakeColor = col;
+}
+function updateSnakeHeadColor(col) {
+  snakeHeadColor = col;
+}
+
+let tickIntervalMs = 100;
+
+// 1: slowest (500ms)
+  // 5: default (100ms)
+  // 10: fastest (50ms)
+let speedToTickInterval = {
+  1: 200,
+  2: 170,
+  3: 140,
+  4: 115,
+  5: 100,
+  6: 85,
+  7: 70,
+  8: 60,
+  9: 55,
+  10: 50
+}
+
+function updateSpeed(spd) {
+  spd = Math.round(spd);
+  if (spd < 1) {
+    spd = 1;
+  } else if (spd > 10) {
+    spd = 10;
+  }
+  
+  tickIntervalMs = speedToTickInterval[spd];
+}
 
 let snake = [{x: gridSize / 2, y: gridSize / 2}];
 
@@ -78,8 +115,6 @@ startButton.addEventListener('click', () => {
     document.querySelectorAll('.collapsable').forEach(
       element => element.classList.add('collapsed')
     );
-    setTimeout(() => {
-    }, 1000);
     gameLoop();
   }
 });
@@ -161,7 +196,7 @@ soundButton.addEventListener('click', () => {
 function drawSnake(ctx, snake, interpolation) {
   ctx.save();
 
-  ctx.strokeStyle = 'green';
+  ctx.strokeStyle = snakeColor;
   ctx.lineWidth = tileSize;
   ctx.lineCap = 'round';
   ctx.lineJoin = 'round';
@@ -182,11 +217,11 @@ function drawSnake(ctx, snake, interpolation) {
     ctx.stroke();
   }
 
-  // Draw a circle for the snake head if it's the only segment
+  // Draw a circle for the snake head
 
   const headXCtr = snake[0].x * tileSize + tileSize / 2;
   const headYCtr = snake[0].y * tileSize + tileSize / 2;
-  ctx.fillStyle = 'darkgreen';
+  ctx.fillStyle = snakeHeadColor;
   ctx.strokeStyle = 'none';
   ctx.beginPath();
   ctx.arc(
@@ -286,7 +321,7 @@ function gameLoop() {
     ctx.drawImage(foodImage, food.x * tileSize, food.y * tileSize, tileSize, tileSize);
   }
 
-  setTimeout(gameLoop, 100);
+  setTimeout(gameLoop, tickIntervalMs);
 }
 
 // Add this function to draw circles
