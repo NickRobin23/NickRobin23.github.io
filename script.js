@@ -13,12 +13,34 @@ const tileSize = canvas.width / gridSize;
 
 let snakeColor = 'green';
 let snakeHeadColor = 'darkgreen';
+
 function updateSnakeColor(col) {
   snakeColor = col;
+  
+  // Make the snake head color a darker version of the selected color
+  snakeHeadColor = darkenColor(col, 20); // Adjust this value as needed
 }
+
 function updateSnakeHeadColor(col) {
   snakeHeadColor = col;
 }
+
+function darkenColor(hex, lum) {
+  hex = hex.replace(/^\s*#|\s*$/g, '');
+  if (hex.length == 3) {
+    hex = hex.replace(/(.)/g, '$1$1');
+  }
+
+  var rgb = "#", c, i;
+  for (i = 0; i < 3; i++) {
+    c = parseInt(hex.substr(i*2,2), 16);
+    c = Math.round(Math.min(Math.max(0, c + (c * lum) / -100), 255)).toString(16);
+    rgb += ("00"+c).substr(c.length);
+  }
+
+  return rgb;
+}
+
 
 let tickIntervalMs = 100;
 
