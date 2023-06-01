@@ -165,6 +165,13 @@ function updateDirection(event) {
         }
         break;
     }
+  } else if (event.key === 'Enter') {
+    // Start the game when Enter key is pressed
+    gameInProgress = true;
+    document.querySelectorAll('.collapsable').forEach(
+      element => element.classList.add('collapsed')
+    );
+    gameLoop();
   }
 }
 
