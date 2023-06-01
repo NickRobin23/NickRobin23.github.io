@@ -166,7 +166,6 @@ function updateDirection(event) {
   }
 }
 
-
 function handleTouchStart(event) {
   touchStartX = event.touches[0].clientX;
   touchStartY = event.touches[0].clientY;
@@ -306,32 +305,30 @@ function gameLoop() {
     food = randomFoodPosition();
   }
 
-  // Check if user input is available
-  if (currentDirection !== 'none') {
-    const velocity = velocityFromDirection(currentDirection);
-    const head = {x: snake[0].x + velocity.x, y: snake[0].y + velocity.y};
-    snake.unshift(head);
+  currentDirection = nextDirection;
+  const velocity = velocityFromDirection(currentDirection);
+  const head = {x: snake[0].x + velocity.x, y: snake[0].y + velocity.y};
+  snake.unshift(head);
 
-    if (head.x === food.x && head.y === food.y) {
-      score += 1;
-      scoreElement.textContent = score;
-      food = randomFoodPosition(); // re-position the food once eaten
-      playEatSound(); // Play the eat sound
-    } else {
-      snake.pop();
-    }
+  if (head.x === food.x && head.y === food.y) {
+    score += 1;
+    scoreElement.textContent = score;
+    food = randomFoodPosition(); // re-position the food once eaten
+    playEatSound(); // Play the eat sound
+  } else {
+    snake.pop();
+  }
 
-    if (head.x < 0 || head.x >= gridSize || head.y < 0 || head.y >= gridSize) {
-      playGameOverSound(); // play game over sound effect
-      resetGame();
-      return;
-    }
+  if (head.x < 0 || head.x >= gridSize || head.y < 0 || head.y >= gridSize) {
+    playGameOverSound(); // play game over sound effect
+    resetGame();
+    return;
+  }
 
-    if (snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)) {
-      playGameOverSound(); // play game over sound effect
-      resetGame();
-      return;
-    }
+  if (snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)) {
+    playGameOverSound(); // play game over sound effect
+    resetGame();
+    return;
   }
 
   ctx.fillStyle = '#ecf0f1';
@@ -389,4 +386,3 @@ function resetGame() {
     element => element.classList.remove('collapsed')
   );
 }
-
