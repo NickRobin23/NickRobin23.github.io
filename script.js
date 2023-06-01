@@ -142,29 +142,32 @@ startButton.addEventListener('click', () => {
 });
 
 function updateDirection(event) {
-  switch (event.key) {
-    case 'ArrowUp':
-      if (currentDirection !== 'down') {
-        nextDirection = 'up';
-      }
-      break;
-    case 'ArrowDown':
-      if (currentDirection !== 'up') {
-        nextDirection = 'down';
-      }
-      break;
-    case 'ArrowLeft':
-      if (currentDirection !== 'right') {
-        nextDirection = 'left';
-      }
-      break;
-    case 'ArrowRight':
-      if (currentDirection !== 'left') {
-        nextDirection = 'right';
-      }
-      break;
+  if (gameInProgress) {
+    switch (event.key) {
+      case 'ArrowUp':
+        if (currentDirection !== 'down') {
+          nextDirection = 'up';
+        }
+        break;
+      case 'ArrowDown':
+        if (currentDirection !== 'up') {
+          nextDirection = 'down';
+        }
+        break;
+      case 'ArrowLeft':
+        if (currentDirection !== 'right') {
+          nextDirection = 'left';
+        }
+        break;
+      case 'ArrowRight':
+        if (currentDirection !== 'left') {
+          nextDirection = 'right';
+        }
+        break;
+    }
   }
 }
+
 
 function handleTouchStart(event) {
   touchStartX = event.touches[0].clientX;
