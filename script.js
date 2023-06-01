@@ -387,7 +387,12 @@ function resetGame() {
   ctx.font = '16px Verdana';
   ctx.fillText('Click Start to play again', canvas.width / 2, canvas.height / 2 + 20);
 
+  // Reset directions
+  currentDirection = 'none';
+  nextDirection = 'none';
+
   document.querySelectorAll('.collapsable').forEach(
     element => element.classList.remove('collapsed')
   );
 }
+
