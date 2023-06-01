@@ -142,36 +142,27 @@ startButton.addEventListener('click', () => {
 });
 
 function updateDirection(event) {
-  if (gameInProgress) {
-    switch (event.key) {
-      case 'ArrowUp':
-        if (currentDirection !== 'down') {
-          nextDirection = 'up';
-        }
-        break;
-      case 'ArrowDown':
-        if (currentDirection !== 'up') {
-          nextDirection = 'down';
-        }
-        break;
-      case 'ArrowLeft':
-        if (currentDirection !== 'right') {
-          nextDirection = 'left';
-        }
-        break;
-      case 'ArrowRight':
-        if (currentDirection !== 'left') {
-          nextDirection = 'right';
-        }
-        break;
-    }
-  } else if (event.key === 'Enter') {
-    // Start the game when Enter key is pressed
-    gameInProgress = true;
-    document.querySelectorAll('.collapsable').forEach(
-      element => element.classList.add('collapsed')
-    );
-    gameLoop();
+  switch (event.key) {
+    case 'ArrowUp':
+      if (currentDirection !== 'down') {
+        nextDirection = 'up';
+      }
+      break;
+    case 'ArrowDown':
+      if (currentDirection !== 'up') {
+        nextDirection = 'down';
+      }
+      break;
+    case 'ArrowLeft':
+      if (currentDirection !== 'right') {
+        nextDirection = 'left';
+      }
+      break;
+    case 'ArrowRight':
+      if (currentDirection !== 'left') {
+        nextDirection = 'right';
+      }
+      break;
   }
 }
 
@@ -393,10 +384,6 @@ function resetGame() {
   ctx.fillStyle = '#34495e';
   ctx.font = '16px Verdana';
   ctx.fillText('Click Start to play again', canvas.width / 2, canvas.height / 2 + 20);
-
-  // Reset directions
-  currentDirection = 'none';
-  nextDirection = 'none';
 
   document.querySelectorAll('.collapsable').forEach(
     element => element.classList.remove('collapsed')
