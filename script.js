@@ -128,7 +128,33 @@ let highScoreElement = document.getElementById('high-score');
 let highScore = localStorage.getItem('highScore') || 0;
 highScoreElement.textContent = `High Score: ${highScore}`;
 
-document.addEventListener('keydown', updateDirection);
+function trySetNextDirection(direction) {
+  if (!gameInProgress) return;
+
+  switch(direction) {
+    case 'up':
+      if (currentDirection !== 'down') {
+        nextDirection = 'up';
+      }
+      break;
+    case 'down':
+      if (currentDirection !== 'up') {
+        nextDirection = 'down';
+      }
+      break;
+    case 'left':
+      if (currentDirection !== 'right') {
+        nextDirection = 'left';
+      }
+      break;
+    case 'right':
+      if (currentDirection !== 'left') {
+        nextDirection = 'right';
+      }
+  }
+}
+
+document.addEventListener('keydown', handleKeyDown);
 document.addEventListener('touchstart', handleTouchStart);
 document.addEventListener('touchmove', handleTouchMove);
 startButton.addEventListener('click', () => {
@@ -141,37 +167,31 @@ startButton.addEventListener('click', () => {
   }
 });
 
-function updateDirection(event) {
+function handleKeyDown(event) {
   switch (event.key) {
     case 'ArrowUp':
-      if (currentDirection !== 'down') {
-        nextDirection = 'up';
-      }
+      trySetNextDirection('up');
       break;
     case 'ArrowDown':
-      if (currentDirection !== 'up') {
-        nextDirection = 'down';
-      }
+      trySetNextDirection('down');
       break;
     case 'ArrowLeft':
-      if (currentDirection !== 'right') {
-        nextDirection = 'left';
-      }
+      trySetNextDirection('left');
       break;
     case 'ArrowRight':
-      if (currentDirection !== 'left') {
-        nextDirection = 'right';
-      }
+      trySetNextDirection('right');
       break;
   }
 }
 
 function handleTouchStart(event) {
+  if (!gameInProgress) return;
   touchStartX = event.touches[0].clientX;
   touchStartY = event.touches[0].clientY;
 }
 
 function handleTouchMove(event) {
+  if (!gameInProgress) return;
   if (event.touches.length === 0) return;
 
   const touchX = event.touches[0].clientX;
@@ -181,17 +201,17 @@ function handleTouchMove(event) {
 
   if (Math.abs(deltaX) > Math.abs(deltaY)) {
     // horizontal swipe
-    if (deltaX > 0 && currentDirection !== 'left') {
-      nextDirection = 'right';
-    } else if (deltaX < 0 && currentDirection !== 'right') {
-      nextDirection = 'left';
+    if (deltaX > 0) {
+      trySetNextDirection('right');
+    } else if (deltaX < 0) {
+      trySetNextDirection('left');
     }
   } else {
     // vertical swipe
-    if (deltaY > 0 && currentDirection !== 'up') {
-      nextDirection = 'down';
-    } else if (deltaY < 0 && currentDirection !== 'down') {
-      nextDirection = 'up';
+    if (deltaY > 0) {
+      trySetNextDirection('down');
+    } else if (deltaY < 0) {
+      trySetNextDirection('up');
     }
   }
 }
@@ -295,6 +315,22 @@ function playGameOverSound() {
   }
 }
 
+function drawGame() {
+
+  // Clear the canvas (fill whiteish color)
+  ctx.fillStyle = '#ecf0f1';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Draw the snake
+  drawSnake(ctx, snake);
+
+  // Draw the food
+  if (gameInProgress && food) {
+    ctx.fillStyle = '#ecf0f1';
+    ctx.drawImage(foodImage, food.x * tileSize, food.y * tileSize, tileSize, tileSize);
+  }
+}
+
 function gameLoop() {
   if (!gameInProgress) {
     return;
@@ -331,17 +367,7 @@ function gameLoop() {
     return;
   }
 
-  ctx.fillStyle = '#ecf0f1';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  // Draw the snake
-  drawSnake(ctx, snake);
-
-  // Draw the food
-  if (gameInProgress && food) {
-    ctx.fillStyle = '#ecf0f1';
-    ctx.drawImage(foodImage, food.x * tileSize, food.y * tileSize, tileSize, tileSize);
-  }
+  drawGame();
 
   setTimeout(gameLoop, tickIntervalMs);
 }
@@ -352,6 +378,24 @@ function drawCircle(ctx, x, y, radius) {
   ctx.moveTo(x, y);
   ctx.arc(x, y, radius, 0, 2 * Math.PI);
   ctx.fill();
+}
+
+function drawInstructions(title, ...texts) {
+
+  // Show title message
+  ctx.fillStyle = '#34495e';
+  ctx.font = 'bold 30px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(title, canvas.width / 2, canvas.height / 2 - 15);
+
+  texts.forEach((text, index) => {
+    // Show subtitle message
+    ctx.fillStyle = '#34495e';
+    ctx.font = '16px Verdana';
+    ctx.fillText(text, 
+      canvas.width / 2, 
+      canvas.height / 2 + 20 + 20 * index);
+  });
 }
 
 function resetGame() {
@@ -371,18 +415,20 @@ function resetGame() {
   score = 0;
   scoreElement.textContent = score;
 
-  // Show "You Lost" message
-  ctx.fillStyle = '#34495e';
-  ctx.font = 'bold 30px sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('You Lost', canvas.width / 2, canvas.height / 2 - 15);
-
-  // Show "Click Start to play again" message
-  ctx.fillStyle = '#34495e';
-  ctx.font = '16px Verdana';
-  ctx.fillText('Click Start to play again', canvas.width / 2, canvas.height / 2 + 20);
+  drawInstructions(
+    'You Lost',
+    'Click Start to play again'
+  );
 
   document.querySelectorAll('.collapsable').forEach(
     element => element.classList.remove('collapsed')
   );
 }
+
+// Draw the game once at the beginning
+drawInstructions(
+  'SNAKE GAME',
+   "By Nick Robinson",
+   "",
+   "Click 'Start Game' to play"
+  );
