@@ -8,8 +8,18 @@
   <audio id="eat-sound" src="/snake/audio/eat.mp3"></audio>
   <audio id="game-over-sound" src="audio/gameover.mp3"></audio>
   <link rel="icon" href="favicon.ico">
+  <style>
+    .back-button {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+  </style>
 </head>
 <body ontouchmove="event.preventDefault();">
+  <a href="https://nicksprojects.co" class="back-button">
+    <img src="/snake/game-photos/return.png" alt="Back" height="40">
+  </a>
   <div class="game-container">
     <h1 class="game-title">Snake Game</h1>
     <div id="score-container">
