@@ -18,7 +18,7 @@
 
   <section id="content">
     <h2>Contact Me:</h2>
-    <form method="POST" action="https://script.google.com/macros/s/AKfycbyEMbzreyWwU3a7ldQjTZSlqdmPDDAjiDfi0dTT_Po1jAu5BL0URP6eOVmR_bLPn7PW/exec">
+    <form id="contact-form" method="POST">
       <div>
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required>
@@ -39,14 +39,39 @@
         <input type="submit" value="Submit">
       </div>
     </form>
+    <div id="message-box"></div>
   </section>
-  Remember to replace "PASTE_YOUR_URL_HERE" with the actual URL you got from the Apps Script project.
   
-  Now, when the form is submitted, the data will be sent to the Google Apps Script, which will then send the email.
+  <script>
+  document.querySelector("#contact-form").addEventListener("submit", function(event){
+    event.preventDefault();
   
+    var form = event.target;
+    var data = {
+      name: form.name.value,
+      email: form.email.value,
+      title: form.title.value,
+      message: form.message.value
+    };
   
-  
-  
+    fetch('https://script.google.com/macros/s/AKfycbxwTDSl2Filfhd2_LtWezi6F4aULW222wUQ_JPmT1WLvptvxg9_t70NW7KPu8Cqe19b/exec', { // Replace with your Apps Script web app URL
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' },
+    })
+    .then(response => {
+      if (response.ok) {
+        document.querySelector("#message-box").innerText = "Email sent successfully!";
+        document.querySelector("#contact-form").reset();
+      } else {
+        throw new Error('Failed to send email');
+      }
+    })
+    .catch(error => {
+      document.querySelector("#message-box").innerText = error.toString();
+    });
+  });
+  </script>
   
   
   
