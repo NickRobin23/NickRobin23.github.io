@@ -1,160 +1,188 @@
+/* General styles */
 body {
   font-family: Arial, sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  width: 100vw;
   margin: 0;
-  background-color: #2c3e50;
-
-  background-image: url('assets/funky-lines.webp');
-
-  background-repeat: repeat;
-  /* background-size: 40px 40px; */
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-button {
-  cursor: pointer;
+h1, h2, h3 {
+  color: #333;
 }
 
-svg.icon {
-  width: 1em;
-  height: 1em;
-  vertical-align: -.125em;
+a {
+  color: #333;
+  text-decoration: none;
 }
 
-.game-container {
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Header styles */
+header {
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+nav ul {
+  display: flex;
+}
+
+nav ul li {
+  margin-right: 20px;
+}
+
+/* Section styles */
+section#content {
+  flex: 1;
+  padding: 50px;
+  text-align: center;
+}
+
+/* Footer styles */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  margin-top: auto;
+}
+
+img {
+  width: 35%;
+  height: 35%;
+}
+
+/* Form styles */
+section#content form {
+  max-width: 400px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #34495e;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 2px 2px 25px black;
 }
 
-.controls {
+section#content form div {
+  margin-bottom: 20px;
+}
+
+section#content form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+section#content form input,
+section#content form textarea {
   width: 100%;
-  text-align: right;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
 }
 
-.controls > button {
-  /* height: 2.4em; */
-  background: rgba(255, 255, 255, 0.05);
-  transition: background 0.1s;
-  padding: 0.5em;
-  color: black;
+section#content form input[type="submit"] {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
   border: none;
-  border-radius: 5px;
-  font-size: 1.25em;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-.controls > button:hover {
-  background: rgba(255, 255, 255, 0.1);
+section#content form input[type="submit"]:hover {
+  background-color: #222;
 }
-
-.controls > button img {
-  height: 1em;
-}
-
-.game-title {
-  color: #f6f8f8f1;
-  margin: 0 0 20px;
-  text-shadow: black 2px 2px 8px;
-}
-
-#game-board {
-  /* border: 1px solid #7f8c8d; */
-  background-color: #ecf0f1;
-  touch-action: none;
-  overscroll-behavior: none;
-}
-
-#score-container {
+/* General styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
   display: flex;
-  justify-content: space-between;
-  width: 100%;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+h1, h2, h3 {
+  color: #333;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Header styles */
+header {
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+nav ul {
+  display: flex;
+}
+
+nav ul li {
+  margin-right: 20px;
+}
+
+/* Section styles */
+section#content {
+  flex: 1;
+  padding: 50px;
+  text-align: center;
+}
+
+section#content h2 {
+  margin-bottom: 20px;
+}
+
+section#content p {
+  margin-bottom: 30px;
+}
+
+section#content h3 {
   margin-bottom: 10px;
 }
 
-#score-container p {
-  margin: 0;
-  color: #ecf0f1;
-  text-shadow: black 2px 2px 2.5px;
-}
-
-#start-button {
-  background-color: #27ae60;
-  color: #ecf0f1;
-  font-size: 16px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s;
-}
-
-#start-button:hover {
-  background-color: #2ac269;
-}
-
-#start-button:active {
-  background-color: #27ae60;
-}
-
-#start-button {
-  /* add these styles to enable CSS transitions */
-  transition: all 0.5s ease-in-out;
-  height: 3em;
-  padding: 10px 20px;
-  opacity: 1;
-  border-radius: 0.5em;
-  font-size: 1em;
-}
-
-.collapsable {
-  transition: height 0.5s, padding 0.5s, opacity 0.5s, font-size 0.5s;
-}
-.collapsable.collapsed, #start-button.collapsed {
-  height: 0;
-  padding: 0;
-  opacity: 0;
-  font-size: 0em;
-}
-
-.controlContainer {
+section#content ul {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0.5em;
-  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.controlContainer > div {
-  flex: 1 1 33.3333%;
+section#content li {
+  margin: 10px;
 }
 
-.ta-center {
+section#content li a {
+  display: inline-block;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+section#content li a:hover {
+  background-color: #222;
+}
+
+/* Footer styles */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
   text-align: center;
-}
-.ta-left {
-  text-align: left;
-}
-.ta-right {
-  text-align: right;
-}
-
-.settings .setting {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 1em;
-  margin: 0.5em;
-}
-
-.settings .setting label {
-  font-weight: 500;
+  margin-top: auto;
 }

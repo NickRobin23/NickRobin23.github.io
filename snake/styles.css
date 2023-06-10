@@ -1,0 +1,160 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0;
+  background-color: #2c3e50;
+
+  background-image: url('assets/funky-lines.webp');
+
+  background-repeat: repeat;
+  /* background-size: 40px 40px; */
+}
+
+button {
+  cursor: pointer;
+}
+
+svg.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -.125em;
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #34495e;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 25px black;
+}
+
+.controls {
+  width: 100%;
+  text-align: right;
+}
+
+.controls > button {
+  /* height: 2.4em; */
+  background: rgba(255, 255, 255, 0.05);
+  transition: background 0.1s;
+  padding: 0.5em;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.25em;
+}
+
+.controls > button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.controls > button img {
+  height: 1em;
+}
+
+.game-title {
+  color: #f6f8f8f1;
+  margin: 0 0 20px;
+  text-shadow: black 2px 2px 8px;
+}
+
+#game-board {
+  /* border: 1px solid #7f8c8d; */
+  background-color: #ecf0f1;
+  touch-action: none;
+  overscroll-behavior: none;
+}
+
+#score-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#score-container p {
+  margin: 0;
+  color: #ecf0f1;
+  text-shadow: black 2px 2px 2.5px;
+}
+
+#start-button {
+  background-color: #27ae60;
+  color: #ecf0f1;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+}
+
+#start-button:hover {
+  background-color: #2ac269;
+}
+
+#start-button:active {
+  background-color: #27ae60;
+}
+
+#start-button {
+  /* add these styles to enable CSS transitions */
+  transition: all 0.5s ease-in-out;
+  height: 3em;
+  padding: 10px 20px;
+  opacity: 1;
+  border-radius: 0.5em;
+  font-size: 1em;
+}
+
+.collapsable {
+  transition: height 0.5s, padding 0.5s, opacity 0.5s, font-size 0.5s;
+}
+.collapsable.collapsed, #start-button.collapsed {
+  height: 0;
+  padding: 0;
+  opacity: 0;
+  font-size: 0em;
+}
+
+.controlContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.5em;
+  width: 100%;
+}
+
+.controlContainer > div {
+  flex: 1 1 33.3333%;
+}
+
+.ta-center {
+  text-align: center;
+}
+.ta-left {
+  text-align: left;
+}
+.ta-right {
+  text-align: right;
+}
+
+.settings .setting {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1em;
+  margin: 0.5em;
+}
+
+.settings .setting label {
+  font-weight: 500;
+}
