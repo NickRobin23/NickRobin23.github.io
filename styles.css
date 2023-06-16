@@ -19,7 +19,7 @@ a {
 
 ul {
   list-style-type: none;
-  padding: 0;
+  padding: 10;
 }
 
 /* Header styles */
@@ -58,7 +58,7 @@ nav a:hover {
 
 nav a.active {
   border-bottom: 2px solid #c85050;
-  background-color: #555; /* Tint for the active page link */
+  /* background-color: #55555513; Tint for the active page link */
 }
 
 /* Section styles */
@@ -129,7 +129,7 @@ section#content form input[type="submit"]:hover {
   color: #fff;
   font-size: 1.2em;
   text-transform: uppercase;
-  background-color: #333333b4;
+  background-color: #33333346;
   padding: 10px;
   border: none;
   border-radius: 4px;
@@ -141,7 +141,7 @@ section#content form input[type="submit"]:hover {
 }
 
 nav ul li .active {
-  background-color: #666;
+  background-color: #66666652;
 }
 
 
