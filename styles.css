@@ -153,6 +153,8 @@ section#about .about-photo {
   max-width: 400px;
   height: auto;
   margin-bottom: 20px;
+  border: 2px solid #0000009a; /* Adds a border */
+  box-shadow: 0 0 10px rgba(0,0,0,0.9); /* Adds a box shadow */
 }
 
 section#about h2 {
@@ -183,6 +185,69 @@ section#about p {
   background-color: #222;
 }
 
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  align-items: flex-start; /* Align items at the top */
+}
+
+.project-item {
+  margin: 2px;;
+  width: 300px;
+  height: 250px;
+  border: 2px solid #aaa;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: all .3s ease;
+  position: relative;
+}
+
+.project-item:hover {
+  transform: scale(1.02); /* More subtle enlargement */
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+
+.project-item h2 {
+  font-size: 1.5em;
+  color: #333;
+  margin: 0;
+  text-align: center;
+}
+
+.project-item p {
+  margin: 20px 0;
+  color: #666;
+  font-size: 1em;
+  line-height: 1.5em;
+  border-bottom: 1px solid #e6e6e6;
+  border-top: 1px solid #e6e6e6;
+}
+
+.project-item a {
+  display: block; /* Makes the button a block element so it fills the width of the box */
+  margin-top: auto; /* Aligns the button to the bottom */
+  padding: 10px 20px;
+  text-align: center; /* Centers the button text */
+  color: #fff;
+  background: #008CBA; 
+  text-decoration: none;
+  border: 2px solid #008CBA;
+  border-radius: 5px;
+  transition: all .2s ease; /* More subtle transition */
+}
+
+.project-item a:hover {
+  background: #007B9A; 
+  border-color: #007B9A;
+}
+
+.project-item .content {
+  height: calc(100% - 70px); /* Adjust the height of the content area */
+  overflow: auto;
+}
 
 /* Responsive design */
 @media screen and (max-width: 600px) {
