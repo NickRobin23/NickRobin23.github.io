@@ -33,19 +33,18 @@
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       let navLinks = document.querySelectorAll("nav a");
-      let currentPage = window.location.pathname.split("/").pop();
-  
-      for(let i = 0; i < navLinks.length; i++) {
-        let linkPage = navLinks[i].getAttribute("href").split("/").pop();
-  
-        if(linkPage === currentPage) {
-          navLinks[i].classList.add("active");
-        }
-        else {
-          navLinks[i].classList.remove("active");
-        }
+      let currentPage = window.location.pathname;
+
+      for (let i = 0; i < navLinks.length; i++) {
+        let linkPage = navLinks[i].getAttribute("href");
+
+      if (linkPage === currentPage) {
+        navLinks[i].classList.add("active");
+      } else {
+      navLinks[i].classList.remove("active");
       }
-    });
+    }
+  });
   </script>
   
   
