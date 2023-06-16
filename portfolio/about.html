@@ -2,17 +2,18 @@
 <html>
 <head>
   <title>My Portfolio - About</title>
-  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" type="text/css" href="/styles.css">
 </head>
 <body>
   <header>
     <h1>Welcome to My Portfolio</h1>
     <nav>
       <ul>
-        <li><a href="index.html" class="nav-button active">Home</a></li>
-        <li><a href="about.html" class="nav-button">About</a></li>
-        <li><a href="contact.html" class="nav-button">Contact</a></li>
-      </ul>
+        <li><a href="/index.html" class="nav-button active">Home</a></li>
+        <li><a href="/portfolio/about.html" class="nav-button">About</a></li>
+        <li><a href="/portfolio/contact.html" class="nav-button">Contact</a></li>
+        <li><a href="/portfolio/work.html" class="nav-button">Past Work</a></li>
+    </ul>
     </nav>
   </header>
 
@@ -23,7 +24,7 @@
     <p>Beyond the realm of coding, I embrace a well-rounded lifestyle that fuels my creativity and fuels my growth. Literature holds a special place in my heart, and I relish the opportunity to explore a diverse range of fiction and non-fiction works. This enriches my understanding of the world and provides fresh perspectives that inform my coding projects. Additionally, I find solace in the great outdoors. Whether it's embarking on exhilarating hikes or pedaling through scenic cycling routes, immersing myself in nature allows me to recharge and find balance in the digital realm.
 
         In this exciting chapter of my life, I eagerly look forward to connecting with fellow coding enthusiasts, professionals, and mentors who share my ardor for growth and innovation. Collaboration and the exchange of ideas are vital components of my personal and professional development. Together, we can create a supportive and inclusive community that fosters creativity, knowledge sharing, and meaningful advancements in the ever-evolving field of technology.</p>
-    <img src="images/nick.jpg" alt="My Photo" class="about-photo">
+    <img src="/images/nick.jpg" alt="My Photo" class="about-photo">
   </section>
   <section id="content">
     <ul>
@@ -35,27 +36,22 @@
     <p>&copy; 2023 Robin. All rights reserved.</p>
   </footer>
   <script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-      const navLinks = document.querySelectorAll('nav ul li a');
+    document.addEventListener("DOMContentLoaded", function() {
+      let navLinks = document.querySelectorAll("nav a");
       let currentPage = window.location.pathname.split("/").pop();
   
-      // If currentPage is empty, it means you're on the home page
-      if (currentPage === '') {
-        currentPage = 'index.html';
-      }
+      for(let i = 0; i < navLinks.length; i++) {
+        let linkPage = navLinks[i].getAttribute("href").split("/").pop();
   
-      navLinks.forEach(link => {
-        const href = link.getAttribute('href');
-  
-        // Remove active class from all links
-        link.classList.remove('active');
-  
-        // Add active class to the link that matches the current page
-        if (href === currentPage) {
-          link.classList.add('active');
+        if(linkPage === currentPage) {
+          navLinks[i].classList.add("active");
         }
-      });
+        else {
+          navLinks[i].classList.remove("active");
+        }
+      }
     });
   </script>
+  
   
 </html>

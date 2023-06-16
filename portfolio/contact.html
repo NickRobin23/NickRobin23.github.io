@@ -2,17 +2,18 @@
 <html>
 <head>
   <title>My Portfolio - Contact</title>
-  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" type="text/css" href="/styles.css">
 </head>
 <body>
   <header>
     <h1>Welcome to My Portfolio</h1>
     <nav>
       <ul>
-        <li><a href="index.html" class="nav-button active">Home</a></li>
-        <li><a href="about.html" class="nav-button">About</a></li>
-        <li><a href="contact.html" class="nav-button">Contact</a></li>
-      </ul>
+        <li><a href="/index.html" class="nav-button active">Home</a></li>
+        <li><a href="/portfolio/about.html" class="nav-button">About</a></li>
+        <li><a href="/portfolio/contact.html" class="nav-button">Contact</a></li>
+        <li><a href="/portfolio/work.html" class="nav-button">Past Work</a></li>
+    </ul>
     </nav>
   </header>
   
@@ -48,28 +49,23 @@
     <p>&copy; 2023 Robin. All rights reserved.</p>
   </footer>
   <script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-      const navLinks = document.querySelectorAll('nav ul li a');
+    document.addEventListener("DOMContentLoaded", function() {
+      let navLinks = document.querySelectorAll("nav a");
       let currentPage = window.location.pathname.split("/").pop();
   
-      // If currentPage is empty, it means you're on the home page
-      if (currentPage === '') {
-        currentPage = 'index.html';
-      }
+      for(let i = 0; i < navLinks.length; i++) {
+        let linkPage = navLinks[i].getAttribute("href").split("/").pop();
   
-      navLinks.forEach(link => {
-        const href = link.getAttribute('href');
-  
-        // Remove active class from all links
-        link.classList.remove('active');
-  
-        // Add active class to the link that matches the current page
-        if (href === currentPage) {
-          link.classList.add('active');
+        if(linkPage === currentPage) {
+          navLinks[i].classList.add("active");
         }
-      });
+        else {
+          navLinks[i].classList.remove("active");
+        }
+      }
     });
   </script>
+  
   
 </body>
 </html>
