@@ -25,7 +25,11 @@ ul {
 /* Header styles */
 header {
   background-color: #333;
-  padding: 20px;
+  padding: 10px;
+}
+
+header nav a {
+  padding: 10px;
 }
 
 nav ul {
@@ -43,7 +47,7 @@ nav a {
   text-transform: uppercase;
   transition: color 0.3s ease;
   background-color: #333;
-  padding: 10px 20px;
+  padding: 10px;
   border: none;
   border-radius: 4px;
 }
@@ -126,7 +130,7 @@ section#content form input[type="submit"]:hover {
   font-size: 1.2em;
   text-transform: uppercase;
   background-color: #333333b4;
-  padding: 10px 20px;
+  padding: 10px;
   border: none;
   border-radius: 4px;
   transition: color 0.3s ease;
@@ -232,16 +236,16 @@ section#about p {
   padding: 10px 20px;
   text-align: center; /* Centers the button text */
   color: #fff;
-  background: #008CBA; 
+  background: #ba0000; 
   text-decoration: none;
-  border: 2px solid #008CBA;
+  border: 2px solid #ba0000;
   border-radius: 5px;
   transition: all .2s ease; /* More subtle transition */
 }
 
 .project-item a:hover {
-  background: #007B9A; 
-  border-color: #007B9A;
+  background: #9a0000; 
+  border-color: #9a0000;
 }
 
 .project-item .content {
