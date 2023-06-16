@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Portfolio - Contact</title>
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+</head>
+<body>
+  <header>
+    <h1>Welcome to My Portfolio</h1>
+    <nav>
+      <ul>
+        <li><a href="/index.html" class="nav-button active">Home</a></li>
+        <li><a href="/portfolio/about.html" class="nav-button">About</a></li>
+        <li><a href="/portfolio/contact.html" class="nav-button">Contact</a></li>
+        <li><a href="/portfolio/work.html" class="nav-button">Past Work</a></li>
+    </ul>
+    </nav>
+  </header>
+  <main>
+    <h1>My Work</h1>
+
+    <div class="container">
+        <div class="project-item">
+            <div class="project-content">
+                <h2>Preformance Task</h2>
+                <p>This is a simple chat bot that will attempt to determine a users emotion based off the sentence provided by the user. <br> ‎ </p>
+            </div>
+            <a href="https://replit.com/@NickRobin23/Performance-Task">View Project</a>
+        </div>
+        <div class="project-item">
+            <div class="project-content">
+                <h2>Turtle Path List</h2>
+                <p>This project uses python with turtles. The user gives directions to the turtle. Once finished the turtle will follow those  directions and draw its path.</p>
+            </div>
+            <a href="https://replit.com/@NickRobin23/Turtle-Path-List">View Project</a>
+        </div>
+
+        <!-- Add more projects as necessary -->
+    </div>
+</main>
+
+  <footer>
+    <p>&copy; 2023 Robin. All rights reserved.</p>
+  </footer>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      let navLinks = document.querySelectorAll("nav a");
+      let currentPage = window.location.pathname.split("/").pop();
+  
+      for(let i = 0; i < navLinks.length; i++) {
+        let linkPage = navLinks[i].getAttribute("href").split("/").pop();
+  
+        if(linkPage === currentPage) {
+          navLinks[i].classList.add("active");
+        }
+        else {
+          navLinks[i].classList.remove("active");
+        }
+      }
+    });
+  </script>
+  
+</body>
+</html>
