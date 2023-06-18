@@ -96,3 +96,29 @@ h1 {
     background-color: #1e1e1e;
     color: #fff;
 }
+/* 
+.key {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: #e8e8e8;
+    border: 1px solid #ccc;
+    margin: 5px;
+    cursor: pointer;
+  } */
+  
+  .key.used {
+    background-color: #aaa;
+  }
+  
+  .key.correct {
+    background-color: #a2e8a2;
+  }
+  
+  .key.wrong {
+    background-color: #e8a2a2;
+  }
+  
+  
