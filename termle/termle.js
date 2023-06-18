@@ -1,17 +1,7 @@
-let validWords = [];
+// List of valid words
+let validWords = ['apple', 'brush', 'candy', 'daisy', 'eagle', 'fruit', 'grape', 'honey', 'icing', 'juice', 'knead', 'lemon', 'maple', 'nudge', 'olive', 'piano', 'quilt', 'roast', 'steak', 'toast', 'usual', 'vivid', 'waste', 'xerox', 'yield', 'zebra'];
 
-fetch('https://api.dictionary.com/words?limit=500')
-  .then(response => response.json())
-  .then(data => {
-    validWords = data.map(word => word.word.toLowerCase());
-    initGame();
-  })
-  .catch(error => {
-    console.log('Failed to fetch valid words:', error);
-    alert('Failed to fetch valid words. Please try again later.');
-  });
-
-let targetWord = '';
+let targetWord = validWords[Math.floor(Math.random() * validWords.length)];
 let attempts = 0;
 
 let inputField = document.querySelector('#guess-input');
@@ -48,18 +38,14 @@ function createKeyboardRow(letters) {
   return row;
 }
 
-function initGame() {
-  targetWord = validWords[Math.floor(Math.random() * validWords.length)];
-}
-
 inputField.addEventListener('keypress', function (event) {
   if (event.key === 'Enter') {
     let guess = inputField.value;
     if (guess.length !== 5) {
       alert('Please enter a word with exactly 5 letters.');
-    } else if (validWords.includes(guess.toLowerCase())) {
-      updateGuessSlots(guess.toLowerCase()); // Update the guess slots
-      checkGuess(guess.toLowerCase());
+    } else if (validWords.includes(guess)) {
+      updateGuessSlots(guess); // Update the guess slots
+      checkGuess(guess);
     } else {
       alert('Please enter a valid word.');
     }
