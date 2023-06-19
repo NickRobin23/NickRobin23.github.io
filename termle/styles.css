@@ -108,17 +108,15 @@ h1 {
     margin: 5px;
     cursor: pointer;
   } */
-  
-  .key.used {
-    background-color: #aaa;
+
+  .key.gray {
+    background-color: #5a5a5a; /* or any other color you choose for letters not in the word */
   }
   
-  .key.correct {
-    background-color: #a2e8a2;
+  .key.yellow {
+    background-color: #c0a71a; /* or any other color you choose for correct letters in the guessed word */
   }
-  
-  .key.wrong {
-    background-color: #e8a2a2;
+
+  .key.green {
+    background-color: #248f24; /* or any other color you choose for incorrect letters in the guessed word */
   }
-  
-  
