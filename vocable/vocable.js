@@ -38,16 +38,42 @@ import { validWords } from './valid_words.js';
     return row;
   }
   
+// Function to show the "Invalid word" popup
+function showInvalidWordPopup(message) {
+  let popup = document.createElement('div');
+  popup.className = 'popup invalid-word-popup';
+
+  let messageBox = document.createElement('div');
+  messageBox.className = 'popup-message';
+  messageBox.textContent = message;
+
+  let closeButton = document.createElement('button');
+  closeButton.addEventListener('click', function () {
+    popup.remove();
+  });
+
+  popup.appendChild(messageBox);
+
+  document.body.appendChild(popup);
+
+  setTimeout(function () {
+    popup.classList.add('fade-out');
+    setTimeout(function () {
+      popup.remove();
+    }, 300); // Remove the popup after the fade-out animation duration
+  }, 3000); // Remove the popup after 3 seconds
+}
+
   inputField.addEventListener('keyup', function (event) {
     if (event.key === 'Enter') {
       let guess = inputField.value;
       if (guess.length !== 5) {
-        alert('Please enter a word with exactly 5 letters.');
+        showInvalidWordPopup('Please enter a word with exactly 5 letters.');
       } else if (validWords.includes(guess)) {
         updateGuessSlots(guess); // Update the guess slots
         checkGuess(guess);
       } else {
-        alert('Please enter a valid word.');
+        showInvalidWordPopup('Please enter a valid word.');
       }
     }
   });
@@ -59,6 +85,31 @@ import { validWords } from './valid_words.js';
       guessSlots[i].textContent = guess.charAt(i).toUpperCase(); // Show the guessed letter
     }
     attempts++;
+  }
+
+  function showMessage(message, className) {
+    let overlay = document.createElement('div');
+    overlay.className = 'overlay';
+  
+    let messageBox = document.createElement('div');
+    messageBox.className = `message-box ${className}`;
+  
+    let closeButton = document.createElement('button');
+    closeButton.className = 'close-button';
+    closeButton.innerHTML = '&times;';
+    closeButton.addEventListener('click', function () {
+      overlay.remove();
+    });
+  
+    let content = document.createElement('div');
+    content.className = 'message-content';
+    content.textContent = message;
+  
+    messageBox.appendChild(closeButton);
+    messageBox.appendChild(content);
+  
+    overlay.appendChild(messageBox);
+    document.body.appendChild(overlay);
   }
   
   function checkGuess(guess) {
@@ -96,9 +147,9 @@ import { validWords } from './valid_words.js';
     });
   
     if (correctPositions === 5) {
-      alert('Congratulations, you won!');
+      showMessage('Congratulations, you won!', 'success');
     } else if (attempts === 5) {
-      alert(`Sorry, you lost. The correct word was "${targetWord}".`);
+      showMessage(`Sorry, you lost. The correct word was "${targetWord}".`, 'failure');
     }
   
     inputField.value = ''; // Clear the input field
