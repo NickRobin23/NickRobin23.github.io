@@ -1,7 +1,7 @@
 body {
   font-family: Arial, sans-serif;
   text-align: center;
-  background-color: #2d2d2d;
+  background-color: #121213;
   color: #fff;
   overflow: hidden; /* Prevent scrolling on mobile */
 }
@@ -33,7 +33,7 @@ h1 {
   width: 50px; /* Increase the width */
   height: 50px; /* Increase the height */
   margin: 5px;
-  border: 1px solid #222121;
+  border: 2px solid #3a3a3c;
   box-shadow: #000000c2 0px 0px 5px;
   box-sizing: border-box;
   font-size: 1.4em; /* Increase the font size */
@@ -59,15 +59,15 @@ h1 {
 }
 
 .green {
-  background-color: #32cd32;
+  background-color: #538d4e;
 }
 
 .yellow {
-  background-color: #ffd700;
+  background-color: #b59f3b;
 }
 
 .gray {
-  background-color: #808080;
+  background-color: #3a3a3c;
 }
 
 #keyboard {
@@ -91,15 +91,15 @@ h1 {
   width: 50px; /* Increase the width */
   height: 60px; /* Increase the height */
   margin: 5px;
-  border: 1px solid #333;
+  border: 1px solid #1f1f1f;
   box-sizing: border-box;
   cursor: pointer;
-  background-color: #1e1e1e;
+  background-color: #818384;
   color: #fff;
 }
 
 .key.gray {
-  background-color: #5a5a5a; /* or any other color you choose for letters not in the word */
+  background-color: #303030; /* or any other color you choose for letters not in the word */
 }
 
 .key.yellow {
