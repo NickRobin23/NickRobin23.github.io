@@ -117,15 +117,23 @@ function showInvalidWordPopup(message) {
     let guessSlots = guessRow.querySelectorAll('.guess-slot');
     let correctGuesses = 0;
     let correctPositions = 0;
+    let correctCounts = {};
   
     for (let i = 0; i < 5; i++) {
       if (guess.charAt(i) === targetWord.charAt(i)) {
         guessSlots[i].classList.add('green'); // Correct letter in correct position
+        correctCounts[guess.charAt(i)] = (correctCounts[guess.charAt(i)] || 0) + 1;
         correctPositions++;
-      } else if (targetWord.includes(guess.charAt(i))) {
+      }
+    }
+  
+    for (let i = 0; i < 5; i++) {
+      if (guess.charAt(i) !== targetWord.charAt(i) && 
+          targetWord.includes(guess.charAt(i)) && 
+          ((targetWord.split(guess.charAt(i)).length - 1) > (correctCounts[guess.charAt(i)] || 0))) {
         guessSlots[i].classList.add('yellow'); // Correct letter in wrong position
         correctGuesses++;
-      } else {
+      } else if (!guessSlots[i].classList.contains('green')) {
         guessSlots[i].classList.add('gray'); // Incorrect letter
       }
     }
@@ -154,4 +162,5 @@ function showInvalidWordPopup(message) {
   
     inputField.value = ''; // Clear the input field
   }
+  
   
