@@ -12,7 +12,7 @@ export const validWords = [
   "bleak", "blend", "bless", "blimp", "blind", "bliss", "block", "blond", "blood", "bloom",
   "bluff", "blunt", "blush", "board", "boast", "boils", "bonds", "bones", "bonus", "books",
   "boost", "booth", "plots", "bored", "borne", "bound", "bowed", "braid", "brake", "brave", "brawl",
-  "brawn", "bread", "break", "breed", "bribe", "brick", "bride", "brief", "brink", "broad",
+  "brawn", "bread", "bikes", "break", "breed", "bribe", "brick", "bride", "brief", "brink", "broad",
   "broke", "bronx", "brood", "brook", "broom", "brown", "bruin", "brush", "brute", "bucks",
   "build", "bulbs", "bulge", "bully", "bunch", "burly", "burns", "burnt", "burro", "burst",
   "buses", "busts", "busty", "butch", "buxom", "buyer", "cabin", "cable", "cache", "cadet",
