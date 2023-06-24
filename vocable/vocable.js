@@ -148,7 +148,7 @@ function showInvalidWordPopup(message) {
   
     if (correctPositions === 5) {
       showMessage('Congratulations, you won!', 'success');
-    } else if (attempts === 5) {
+    } else if (attempts === 6) {
       showMessage(`Sorry, you lost. The correct word was "${targetWord}".`, 'failure');
     }
   
