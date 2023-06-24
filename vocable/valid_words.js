@@ -34,7 +34,7 @@ export const validWords = [
   "crime", "crisp", "croak", "crock", "crook", "croon", "cross", "crowd", "crown", "crows",
   "crumb", "crush", "crust", "crypt", "cuban", "cubic", "cuffs", "cumin", "cupid", "curet",
   "cured", "curry", "curve", "cushy", "cuter", "cutie", "cycle", "cynic", "dairy", "dance",
-  "dandy", "dared", "dares", "darts", "dated", "dates", "daunt", "david", "dawns", "dealt",
+  "dandy", "daisy", "dared", "dares", "darts", "dated", "dates", "daunt", "david", "dawns", "dealt",
   "death", "debit", "debit", "debts", "debug", "debug", "decaf", "decay", "decks", "decoy",
   "decry", "defer", "deity", "delay", "delta", "demon", "dense", "dents", "depth", "derby",
   "deuce", "devil", "devon", "dials", "diary", "diced", "dices", "dicks", "dicky", "dicta",
