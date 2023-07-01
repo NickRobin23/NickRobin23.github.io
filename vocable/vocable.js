@@ -3,10 +3,10 @@ import { validWords } from './valid_words.js';
 
 let targetWord = validWords[Math.floor(Math.random() * validWords.length)];
 let attempts = 0;
-let gameWon = false; // Added
+let gameWon = false;
 
-let inputField = document.querySelector('#guess-input');
 let guessRows = document.querySelectorAll('.guess-row');
+let currentGuess = Array(5).fill(null); // Hold current guess letters
 
 // Generate the on-screen keyboard
 let keyboard = document.querySelector('#keyboard');
@@ -28,16 +28,79 @@ function createKeyboardRow(letters) {
     key.className = 'key';
     key.textContent = letter;
     key.addEventListener('click', function () {
-      if (inputField.value.length < 5 && !gameWon) {
-        inputField.value += this.textContent;
-        inputField.focus(); // Keep focus on the input field
-      }
+      addLetterToGuess(this.textContent);
     });
     row.appendChild(key);
   }
 
   return row;
 }
+
+// Add letter to current guess
+function addLetterToGuess(letter) {
+  if (!gameWon && currentGuess.includes(null)) {
+    let index = currentGuess.indexOf(null);
+    currentGuess[index] = letter;
+    updateGuessSlots(currentGuess.join('')); // Update the guess slots
+  }
+}
+
+// Clear current guess
+function clearCurrentGuess() {
+  currentGuess.fill(null);
+}
+
+// Function to remove letter from current guess
+function removeLetterFromGuess() {
+  if (currentGuess.some((x) => x !== null)) {
+    let index = currentGuess.lastIndexOf(null);
+    if (index === -1) {
+      index = currentGuess.length - 1; // Remove last letter if no null found
+    }
+    while (index >= 0 && currentGuess[index] === null) {
+      index--; // Find the first non-null letter
+    }
+    if (index >= 0) {
+      currentGuess[index] = null; // Delete the non-null letter
+    }
+    updateGuessSlots(currentGuess.join('')); // Update the guess slots
+  }
+}
+
+
+// Function to update guess slots
+function updateGuessSlots(guess, index = attempts) {
+  let guessRow = guessRows[index];
+  let guessSlots = guessRow.querySelectorAll('.guess-slot');
+  for (let i = 0; i < 5; i++) { // Always iterate over 5 slots
+    guessSlots[i].textContent = guess.charAt(i) ? guess.charAt(i).toUpperCase() : ""; // Show the guessed letter or clear if no letter
+  }
+}
+
+
+// Event listener for keydown events
+window.addEventListener('keydown', function (event) {
+  if (event.key === 'Enter' && !gameWon) {
+    let guess = currentGuess.join('');
+    if (currentGuess.includes(null)) {
+      showInvalidWordPopup('Please enter a word with exactly 5 letters.');
+    } else if (validWords.includes(guess)) {
+      checkGuess(guess);
+      clearCurrentGuess();
+    } else {
+      showInvalidWordPopup('Please enter a valid word.');
+    }
+  } else if (event.key === 'Backspace') {
+    event.preventDefault(); // Prevent browser navigation
+    removeLetterFromGuess();
+    updateGuessSlots(currentGuess.join(''), attempts); // Update the guess slots with the current attempt
+  } else if (event.key.length === 1 && event.key.match(/[a-z]/i)) {
+    addLetterToGuess(event.key);
+  }
+});
+
+
+
 
 // Function to show the "Invalid word" popup
 function showInvalidWordPopup(message) {
@@ -54,7 +117,6 @@ function showInvalidWordPopup(message) {
   });
 
   popup.appendChild(messageBox);
-
   document.body.appendChild(popup);
 
   setTimeout(function () {
@@ -63,29 +125,6 @@ function showInvalidWordPopup(message) {
       popup.remove();
     }, 300); // Remove the popup after the fade-out animation duration
   }, 3000); // Remove the popup after 3 seconds
-}
-
-inputField.addEventListener('keyup', function (event) {
-  if (event.key === 'Enter' && !gameWon) {
-    let guess = inputField.value;
-    if (guess.length !== 5) {
-      showInvalidWordPopup('Please enter a word with exactly 5 letters.');
-    } else if (validWords.includes(guess)) {
-      updateGuessSlots(guess);
-      checkGuess(guess);
-    } else {
-      showInvalidWordPopup('Please enter a valid word.');
-    }
-  }
-});
-
-function updateGuessSlots(guess) {
-  let guessRow = guessRows[attempts];
-  let guessSlots = guessRow.querySelectorAll('.guess-slot');
-  for (let i = 0; i < 5; i++) {
-    guessSlots[i].textContent = guess.charAt(i).toUpperCase();
-  }
-  attempts++;
 }
 
 function showMessage(message, className) {
@@ -114,51 +153,55 @@ function showMessage(message, className) {
 }
 
 function checkGuess(guess) {
-  let guessRow = guessRows[attempts - 1];
-  let guessSlots = guessRow.querySelectorAll('.guess-slot');
-  let correctGuesses = 0;
-  let correctPositions = 0;
-  let correctCounts = {};
+  if (attempts < 6 && !gameWon) {
+    let guessRow = guessRows[attempts];
+    let guessSlots = guessRow.querySelectorAll('.guess-slot');
+    let correctGuesses = 0;
+    let correctPositions = 0;
+    let correctCounts = {};
 
-  for (let i = 0; i < 5; i++) {
-    if (guess.charAt(i) === targetWord.charAt(i)) {
-      guessSlots[i].classList.add('green');
-      correctCounts[guess.charAt(i)] = (correctCounts[guess.charAt(i)] || 0) + 1;
-      correctPositions++;
-    }
-  }
-
-  for (let i = 0; i < 5; i++) {
-    if (guess.charAt(i) !== targetWord.charAt(i) && targetWord.includes(guess.charAt(i)) && ((targetWord.split(guess.charAt(i)).length - 1) > (correctCounts[guess.charAt(i)] || 0))) {
-      guessSlots[i].classList.add('yellow');
-      correctGuesses++;
-    } else if (!guessSlots[i].classList.contains('green')) {
-      guessSlots[i].classList.add('gray');
-    }
-  }
-
-  let keyboardKeys = document.querySelectorAll('.key');
-  keyboardKeys.forEach(function (key) {
-    let letter = key.textContent;
-    if (guess.includes(letter)) {
-      if (targetWord.includes(letter)) {
-        if (guess.indexOf(letter) === targetWord.indexOf(letter)) {
-          key.classList.add('green');
-        } else {
-          key.classList.add('yellow');
-        }
-      } else {
-        key.classList.add('gray');
+    for (let i = 0; i < 5; i++) {
+      if (guess.charAt(i) === targetWord.charAt(i)) {
+        guessSlots[i].classList.add('green'); // Correct letter in correct position
+        correctCounts[guess.charAt(i)] = (correctCounts[guess.charAt(i)] || 0) + 1;
+        correctPositions++;
       }
     }
-  });
 
-  if (correctPositions === 5) {
-    showMessage('Congratulations, you won!', 'success');
-    gameWon = true;
-  } else if (attempts === 6) {
-    showMessage(`Sorry, you lost. The correct word was "${targetWord}".`, 'failure');
+    for (let i = 0; i < 5; i++) {
+      if (guess.charAt(i) !== targetWord.charAt(i) && 
+          targetWord.includes(guess.charAt(i)) && 
+          ((targetWord.split(guess.charAt(i)).length - 1) > (correctCounts[guess.charAt(i)] || 0))) {
+        guessSlots[i].classList.add('yellow'); // Correct letter in wrong position
+        correctGuesses++;
+      } else if (!guessSlots[i].classList.contains('green')) {
+        guessSlots[i].classList.add('gray'); // Incorrect letter
+      }
+    }
+
+    let keyboardKeys = document.querySelectorAll('.key');
+    keyboardKeys.forEach(function (key) {
+      let letter = key.textContent;
+      if (guess.includes(letter)) {
+        if (targetWord.includes(letter)) {
+          if (guess.indexOf(letter) === targetWord.indexOf(letter)) {
+            key.classList.add('green'); // Correct letter in the correct position
+          } else {
+            key.classList.add('yellow'); // Correct letter in the guessed word, but not in the correct position
+          }
+        } else {
+          key.classList.add('gray'); // Letter is not in the word
+        }
+      }
+    });
+
+    if (correctPositions === 5) {
+      showMessage('Congratulations, you won!', 'success');
+      gameWon = true;
+    } else if (attempts === 5) {
+      showMessage(`Sorry, you lost. The correct word was "${targetWord}".`, 'failure');
+    }
+
+    attempts++;
   }
-
-  inputField.value = '';
 }
