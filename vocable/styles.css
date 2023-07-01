@@ -30,14 +30,14 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50px; /* Increase the width */
-  height: 50px; /* Increase the height */
+  width: 60px;
+  height: 60px; 
   margin: 5px;
   border: 2px solid #3a3a3c;
   box-shadow: #000000c2 0px 0px 5px;
   box-sizing: border-box;
-  font-size: 1.4em; /* Increase the font size */
-  text-align: center; /* Center the text */
+  font-size: 1.7rem;
+  text-align: center;
 }
 
 #guess-input {
