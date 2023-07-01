@@ -7,7 +7,9 @@
   <link rel="stylesheet" href="/snake/styles.css">
   <audio id="eat-sound" src="/snake/audio/eat.mp3"></audio>
   <audio id="game-over-sound" src="audio/gameover.mp3"></audio>
-  <link rel="icon" href="/snake/favicon.ico">
+  <link rel="icon" href="/snake/favicon.ico" type="image/x-icon" />
+
+  
   <style>
     .back-button {
       position: absolute;
@@ -16,6 +18,8 @@
     }
   </style>
 </head>
+<?php echo '<link rel="shortcut icon" href="http://www.nicksprojects.co/snake/favicon.ico?t=' . time() . '" />';?>
+
 <body ontouchmove="event.preventDefault();">
   <a href="https://nicksprojects.co" class="back-button">
     <img src="/snake/game-photos/return.png" alt="Back" height="40">
