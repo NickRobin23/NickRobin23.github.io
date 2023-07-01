@@ -244,7 +244,7 @@ export const validWords = [
   "sated", "sates", "satin", "satis", "saucy", "sauls", "sault", "sauna", "sauls", "sault",
   "sauna", "saved", "saver", "saves", "savor", "savvy", "sawed", "sawer", "saxes", "sayer",
   "scaff", "scald", "scale", "scall", "scalp", "scaly", "scamp", "scams", "scans", "scant",
-  "scape", "scarf", "scarp", "scars", "scary", "scats", "scold", "scone", "scoop", "scoot",
+  "scape", "scare", "scarf", "scarp", "scars", "scary", "scats", "scold", "scone", "scoop", "scoot",
   "scope", "scops", "score", "scorn", "scour", "scout", "scowl", "scows", "scrag", "scram",
   "scrap", "screw", "scrim", "scrip", "scrod", "scrub", "scrum", "scuba", "scuds", "scuff",
   "scums", "scurf", "seals", "seams", "seamy", "sears", "seats", "sebum", "sects", "sedan",
