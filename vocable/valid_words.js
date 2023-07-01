@@ -265,7 +265,7 @@ export const validWords = [
   "sidle", "siege", "sieve", "sifts", "sighs", "sight", "sigma", "signs", "siker", "silks",
   "silky", "sills", "silly", "silos", "silts", "silva", "since", "sines", "sinew", "singe",
   "sings", "sinks", "sinus", "sired", "siree", "siren", "sires", "sirup", "sisal", "sises",
-  "sissy", "sitar", "sited", "sites", "sizer", "sizes", "skate", "skeet", "skein", "skews",
+  "sissy", "sitar", "paper", "sited", "sites", "sizer", "sizes", "skate", "skeet", "skein", "skews",
   "skids", "skied", "skier", "skies", "skiff", "skill", "skimp", "skins", "skips", "skirt",
   "skits", "skoal", "skulk", "skull", "skunk", "skyed", "slabs", "slack", "slags", "slain",
   "slake", "slams", "slang", "slant", "slaps", "slash", "slate", "slats", "slave", "slaws",
