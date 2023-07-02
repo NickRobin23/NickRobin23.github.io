@@ -183,7 +183,7 @@ export const validWords = [
   "paler", "pales", "palls", "pally", "palms", "palmy", "palms", "palmy", "palsy", "panel",
   "pansy", "panty", "parch", "pardi", "pards", "pared", "pares", "parks", "parry", "parse",
   "parts", "party", "pasha", "passe", "pasta", "paste", "pasts", "pasty", "patch", "pates",
-  "paths", "patio", "patsy", "patty", "pause", "paved", "paver", "paves", "pawed", "pawls",
+  "paths", "patio", "patsy", "patty", "pause", "paved", "paver", "paves", "pawed", "pawls", "sales",
   "payed", "payee", "payer", "peace", "peach", "peaks", "peals", "pearl", "pears", "peart",
   "pease", "peats", "peavy", "pecan", "pecks", "pedal", "peeks", "peels", "peens", "peeps",
   "peers", "peeve", "peins", "pence", "pends", "penis", "penny", "peons", "peony", "peppy",
