@@ -252,6 +252,14 @@ h1 {
   cursor: pointer;
 }
 
+img {
+    height: 40px;
+    overflow-clip-margin: content-box;
+    overflow: clip;
+}
+
+
+
 @keyframes popupFadeIn {
   from {
       opacity: 0;
