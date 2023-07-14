@@ -12977,5 +12977,3 @@ const allowedGuesses = [
   'zymes',
   'zymic'
 ]
-
-export const allWords = [...answers, ...allowedGuesses]
