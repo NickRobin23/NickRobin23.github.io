@@ -257,10 +257,10 @@ function createHandElement(hand, owner, animationType) {
         // For dealer, the second card should be hidden initially, but only if the dealer has exactly two cards
         if (owner === 'Dealer' && index === 1 && hand.length === 2) {
             cardElement.dataset.hiddenCard = `${card.value}_of_${card.suit}`;  // Store the card info to be used later
-            cardElement.style.backgroundImage = `url('img/PlayingCards/card-back.png')`;
+            cardElement.style.backgroundImage = `url('/blackjack/img/PlayingCards/card-back.png')`;
             cardElement.classList.add('hidden');
         } else {
-            cardElement.style.backgroundImage = `url('img/PlayingCards/${card.value}_of_${card.suit}.png')`;
+            cardElement.style.backgroundImage = `url('/blackjack/img/PlayingCards/${card.value}_of_${card.suit}.png')`;
         }
 
         // Use slide animation for initial deal or flip for hits based on animationType
@@ -285,7 +285,7 @@ function revealDealerHiddenCard() {
     const hiddenCardElement = document.querySelector('.dealer-hand .card.hidden');
     
     if (hiddenCardElement) {
-        hiddenCardElement.style.backgroundImage = `url('img/PlayingCards/${hiddenCard.value}_of_${hiddenCard.suit}.png')`;
+        hiddenCardElement.style.backgroundImage = `url('/blackjack/img/PlayingCards/${hiddenCard.value}_of_${hiddenCard.suit}.png')`;
         hiddenCardElement.classList.remove('hidden');
     }
 }
