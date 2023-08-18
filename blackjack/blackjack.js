@@ -36,6 +36,7 @@ function deal() {
 
     // Play deal sound
     playSound(dealSound);
+    setTimeout(700)
 
     // Deal two cards to player and dealer
     playerHand.push(dealCard());
