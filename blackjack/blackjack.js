@@ -302,14 +302,18 @@ function determineWinner() {
 
     if (playerValue > 21) {
         showMessage('Player busts! Dealer wins.');
+        playSound(loseSound);
     } else if (dealerValue > 21) {
         showMessage('Dealer busts! Player wins.');
+        playSound(winSound);
     } else if (playerValue > dealerValue) {
         showMessage('Player wins!');
     } else if (playerValue < dealerValue) {
         showMessage('Dealer wins.');
+        playSound(loseSound);
     } else {
         showMessage('It\'s a tie!');
+        playSound(tieSound);
     }
 
     setTimeout(() => {
