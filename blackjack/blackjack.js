@@ -36,7 +36,6 @@ function deal() {
 
     // Play deal sound
     playSound(dealSound);
-    setTimeout(700)
 
     // Deal two cards to player and dealer
     playerHand.push(dealCard());
@@ -55,31 +54,6 @@ function deal() {
     }, 2000);
 }
 
-function hit() {
-    playerHand.push(dealCard());
-
-    // Before appending the new card, remove the existing player's hand from the table
-    const existingPlayerHandElement = document.querySelector('.player-hand');
-    if (existingPlayerHandElement) {
-        existingPlayerHandElement.remove();
-    }
-
-    // Now display the updated player's hand with the new card
-    const playerHandElement = createHandElement(playerHand, 'Player', 'hit');
-    table.appendChild(playerHandElement);
-
-    if (calculateHandValue(playerHand) > 21) {
-        determineWinner();
-        hitButton.style.opacity = '0';
-        hitButton.style.visibility = 'hidden';
-        standButton.style.opacity = '0';
-        standButton.style.visibility = 'hidden';
-        dealButton.style.opacity = '1';
-        dealButton.style.visibility = 'visible';
-    } else if (calculateHandValue(playerHand) === 21) { // Automatically stand if player hits 21
-        stand();
-    }
-}
 function hit() {
     playerHand.push(dealCard());
 
