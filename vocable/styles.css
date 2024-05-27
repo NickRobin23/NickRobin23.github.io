@@ -330,3 +330,88 @@ img {
       font-size: 12px;
   }
 }
+
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.message-box {
+  background: #111;
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+}
+
+.message-content h2, .message-content h3 {
+  margin: 10px 0;
+}
+
+.message-content .statistics {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.message-content .statistics .stat {
+  text-align: center;
+}
+
+.message-content .guess-distribution {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.message-content .next-wordle {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.share-button {
+  background-color: #6aaa64;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.buttons button {
+  background-color: #6aaa64;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.close-button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 24px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}

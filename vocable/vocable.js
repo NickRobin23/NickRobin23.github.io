@@ -67,7 +67,6 @@ function removeLetterFromGuess() {
   }
 }
 
-
 // Function to update guess slots
 function updateGuessSlots(guess, index = attempts) {
   let guessRow = guessRows[index];
@@ -76,7 +75,6 @@ function updateGuessSlots(guess, index = attempts) {
     guessSlots[i].textContent = guess.charAt(i) ? guess.charAt(i).toUpperCase() : ""; // Show the guessed letter or clear if no letter
   }
 }
-
 
 // Event listener for keydown events
 window.addEventListener('keydown', function (event) {
@@ -98,9 +96,6 @@ window.addEventListener('keydown', function (event) {
     addLetterToGuess(event.key);
   }
 });
-
-
-
 
 // Function to show the "Invalid word" popup
 function showInvalidWordPopup(message) {
@@ -134,6 +129,62 @@ function showMessage(message, className) {
   let messageBox = document.createElement('div');
   messageBox.className = `message-box ${className}`;
 
+  let content = document.createElement('div');
+  content.className = 'message-content';
+  content.innerHTML = `
+    <h2>STATISTICS (DAILY)</h2>
+    <div class="statistics">
+      <div class="stat">
+        <div>1</div>
+        <div>Played</div>
+      </div>
+      <div class="stat">
+        <div>100%</div>
+        <div>Win %</div>
+      </div>
+      <div class="stat">
+        <div>5.0</div>
+        <div>Average Guesses</div>
+      </div>
+      <div class="stat">
+        <div>1</div>
+        <div>Current Streak</div>
+      </div>
+      <div class="stat">
+        <div>1</div>
+        <div>Max Streak</div>
+      </div>
+    </div>
+    <h3>GUESS DISTRIBUTION</h3>
+    <div class="guess-distribution">
+      <div>5</div>
+    </div>
+    <h3>NEXT WORDLE</h3>
+    <div class="next-wordle">10:27:10</div>
+    <br>
+    <br>
+  `;
+
+  let buttons = document.createElement('div');
+  buttons.className = 'buttons';
+
+  let newGameButton = document.createElement('button');
+  newGameButton.textContent = 'New Game';
+  newGameButton.addEventListener('click', function () {
+    resetGame();
+    overlay.remove();
+  });
+
+  let viewPreviousButton = document.createElement('button');
+  viewPreviousButton.textContent = 'View Previous Game';
+  viewPreviousButton.addEventListener('click', function () {
+    viewPreviousGame();
+    overlay.remove();
+  });
+
+  buttons.appendChild(newGameButton);
+  buttons.appendChild(viewPreviousButton);
+
   let closeButton = document.createElement('button');
   closeButton.className = 'close-button';
   closeButton.innerHTML = '&times;';
@@ -141,12 +192,9 @@ function showMessage(message, className) {
     overlay.remove();
   });
 
-  let content = document.createElement('div');
-  content.className = 'message-content';
-  content.textContent = message;
-
   messageBox.appendChild(closeButton);
   messageBox.appendChild(content);
+  messageBox.appendChild(buttons);
 
   overlay.appendChild(messageBox);
   document.body.appendChild(overlay);
@@ -205,3 +253,30 @@ function checkGuess(guess) {
     attempts++;
   }
 }
+
+// Function to reset the game for a new game
+function resetGame() {
+  attempts = 0;
+  gameWon = false;
+  targetWord = validWords[Math.floor(Math.random() * validWords.length)];
+  currentGuess.fill(null);
+
+  guessRows.forEach(row => {
+    let guessSlots = row.querySelectorAll('.guess-slot');
+    guessSlots.forEach(slot => {
+      slot.textContent = '';
+      slot.className = 'guess-slot';
+    });
+  });
+
+  let keyboardKeys = document.querySelectorAll('.key');
+  keyboardKeys.forEach(key => {
+    key.className = 'key';
+  });
+}
+
+// Placeholder function for viewing previous game
+function viewPreviousGame() {
+  alert('This feature is not yet implemented.');
+}
+
