@@ -8,6 +8,15 @@ let gameWon = false;
 let guessRows = document.querySelectorAll('.guess-row');
 let currentGuess = Array(5).fill(null); // Hold current guess letters
 
+let gameStats = {
+  played: 0,
+  wins: 0,
+  currentStreak: 0,
+  maxStreak: 0,
+  guessDistribution: Array(6).fill(0), // For guesses from 1 to 6
+  totalGuesses: 0
+};
+
 // Generate the on-screen keyboard
 let keyboard = document.querySelector('#keyboard');
 
@@ -131,38 +140,46 @@ function showMessage(message, className) {
 
   let content = document.createElement('div');
   content.className = 'message-content';
+  
+  // Calculate the maximum count for scaling the bars
+  const maxCount = Math.max(...gameStats.guessDistribution);
+
   content.innerHTML = `
     <h2>STATISTICS (DAILY)</h2>
     <div class="statistics">
       <div class="stat">
-        <div>1</div>
+        <div>${gameStats.played}</div>
         <div>Played</div>
       </div>
       <div class="stat">
-        <div>100%</div>
+        <div>${(gameStats.wins / gameStats.played * 100).toFixed(0)}%</div>
         <div>Win %</div>
       </div>
       <div class="stat">
-        <div>5.0</div>
+        <div>${(gameStats.totalGuesses / gameStats.wins).toFixed(1)}</div>
         <div>Average Guesses</div>
       </div>
       <div class="stat">
-        <div>1</div>
+        <div>${gameStats.currentStreak}</div>
         <div>Current Streak</div>
       </div>
       <div class="stat">
-        <div>1</div>
+        <div>${gameStats.maxStreak}</div>
         <div>Max Streak</div>
       </div>
     </div>
     <h3>GUESS DISTRIBUTION</h3>
     <div class="guess-distribution">
-      <div>5</div>
+      ${gameStats.guessDistribution.map((count, index) => `
+        <div>
+          <div class="label">${index + 1}</div>
+          <div class="bar" style="width: ${(count / maxCount) * 100}%"></div>
+          <div>${count}</div>
+        </div>
+      `).join('')}
     </div>
     <h3>NEXT WORDLE</h3>
     <div class="next-wordle">10:27:10</div>
-    <br>
-    <br>
   `;
 
   let buttons = document.createElement('div');
@@ -199,6 +216,7 @@ function showMessage(message, className) {
   overlay.appendChild(messageBox);
   document.body.appendChild(overlay);
 }
+
 
 function checkGuess(guess) {
   if (attempts < 6 && !gameWon) {
@@ -244,9 +262,17 @@ function checkGuess(guess) {
     });
 
     if (correctPositions === 5) {
+      gameStats.played++;
+      gameStats.wins++;
+      gameStats.currentStreak++;
+      gameStats.maxStreak = Math.max(gameStats.currentStreak, gameStats.maxStreak);
+      gameStats.guessDistribution[attempts]++;
+      gameStats.totalGuesses += attempts + 1;
       showMessage('Congratulations, you won!', 'success');
       gameWon = true;
     } else if (attempts === 5) {
+      gameStats.played++;
+      gameStats.currentStreak = 0;
       showMessage(`Sorry, you lost. The correct word was "${targetWord}".`, 'failure');
     }
 
@@ -279,4 +305,3 @@ function resetGame() {
 function viewPreviousGame() {
   alert('This feature is not yet implemented.');
 }
-
